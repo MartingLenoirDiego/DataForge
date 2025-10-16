@@ -8,8 +8,23 @@ export default function Dashboard() {
   const { logout } = useAuth();
 
   useEffect(() => {
-    api.get("datasets/").then((res) => setDatasets(res.data));
+    fetchDatasets();
   }, []);
+
+  const fetchDatasets = async () => {
+    const res = await api.get("datasets/");
+    setDatasets(res.data);
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!confirm("Voulez-vous vraiment supprimer ce dataset ?")) return;
+    try {
+      await api.delete(`datasets/${id}/`);
+      setDatasets(datasets.filter((d) => d.id !== id)); // mise à jour du state
+    } catch (err) {
+      console.error("Erreur de suppression :", err);
+    }
+  };
 
   return (
     <div className="p-6">
@@ -34,7 +49,6 @@ export default function Dashboard() {
         {datasets.map((d) => (
           <div key={d.id} className="border rounded-lg p-4 bg-white shadow">
             <h3 className="font-semibold">{d.name}</h3>
-
             <a
               href={d.file}
               target="_blank"
@@ -55,13 +69,13 @@ export default function Dashboard() {
               </a>
             )}
 
-            {/* 👁️ Lien vers la page de prévisualisation */}
-            <Link
-              to={`/datasets/${d.id}/preview`}
-              className="block text-indigo-600 text-sm mt-2 hover:underline"
+            {/* bouton supprimer */}
+            <button
+              onClick={() => handleDelete(d.id)}
+              className="mt-3 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
             >
-              👁️ Preview
-            </Link>
+              Supprimer
+            </button>
           </div>
         ))}
       </div>
