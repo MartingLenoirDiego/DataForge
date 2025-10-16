@@ -34,6 +34,7 @@ export default function Dashboard() {
         {datasets.map((d) => (
           <div key={d.id} className="border rounded-lg p-4 bg-white shadow">
             <h3 className="font-semibold">{d.name}</h3>
+
             <a
               href={d.file}
               target="_blank"
@@ -42,6 +43,7 @@ export default function Dashboard() {
             >
               Download
             </a>
+
             {d.cleaned_file && (
               <a
                 href={d.cleaned_file}
@@ -52,6 +54,14 @@ export default function Dashboard() {
                 Cleaned File
               </a>
             )}
+
+            {/* 👁️ Lien vers la page de prévisualisation */}
+            <Link
+              to={`/datasets/${d.id}/preview`}
+              className="block text-indigo-600 text-sm mt-2 hover:underline"
+            >
+              👁️ Preview
+            </Link>
           </div>
         ))}
       </div>
