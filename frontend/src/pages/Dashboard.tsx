@@ -8,15 +8,10 @@ export default function Dashboard() {
   const { logout } = useAuth();
 
   useEffect(() => {
-    fetchDatasets();
+    api.get("datasets/").then((res) => setDatasets(res.data));
   }, []);
 
-  const fetchDatasets = async () => {
-    const res = await api.get("datasets/");
-    setDatasets(res.data);
-  };
-
-  const handleDelete = async (id: number) => {
+   const handleDelete = async (id: number) => {
     if (!confirm("Voulez-vous vraiment supprimer ce dataset ?")) return;
     try {
       await api.delete(`datasets/${id}/`);
@@ -49,6 +44,7 @@ export default function Dashboard() {
         {datasets.map((d) => (
           <div key={d.id} className="border rounded-lg p-4 bg-white shadow">
             <h3 className="font-semibold">{d.name}</h3>
+
             <a
               href={d.file}
               target="_blank"
@@ -69,7 +65,13 @@ export default function Dashboard() {
               </a>
             )}
 
-            {/* bouton supprimer */}
+            {/* 👁️ Lien vers la page de prévisualisation */}
+            <Link
+              to={`/datasets/${d.id}/preview`}
+              className="block text-indigo-600 text-sm mt-2 hover:underline"
+            >
+              👁️ Preview
+            </Link>
             <button
               onClick={() => handleDelete(d.id)}
               className="mt-3 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"

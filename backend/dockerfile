@@ -1,0 +1,22 @@
+# Utilise une image Python
+FROM python:3.12-slim
+
+# Empêche Python d’écrire des fichiers .pyc
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Crée un dossier de travail
+WORKDIR /app
+
+# Copie les fichiers du backend
+COPY . /app/
+
+# Installe les dépendances
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# Collecte les fichiers statiques
+RUN python manage.py collectstatic --noinput
+
+# Commande de lancement via Gunicorn
+CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:8000"]
