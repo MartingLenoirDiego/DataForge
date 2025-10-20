@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'change-this-secret-in-prod'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
