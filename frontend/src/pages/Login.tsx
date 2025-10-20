@@ -23,7 +23,7 @@ export default function Login() {
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded-lg shadow-lg w-80"
       >
-        <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
+        <h2 className="text-xl font-bold mb-4 text-center">Login TEST DEP</h2>
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
         <input
           className="border p-2 w-full mb-2 rounded"
