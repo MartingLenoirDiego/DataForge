@@ -16,6 +16,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT }}   # Ajoute cette ligne si port ≠ 22
           script: |
             cd /var/www/dataforge
             ./deploy.sh
