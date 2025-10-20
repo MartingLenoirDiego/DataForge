@@ -4,7 +4,7 @@ services:
   backend:
     build: ./backend
     container_name: dataforge_backend
-    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn core.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - ./backend:/app
     env_file:
@@ -12,7 +12,6 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
       - redis
 
   frontend:
@@ -23,19 +22,6 @@ services:
     depends_on:
       - backend
 
-  db:
-    image: postgres:15
-    container_name: dataforge_db
-    restart: always
-    environment:
-      POSTGRES_DB: dataforge
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5433:5432"
-
   redis:
     image: redis:7
     container_name: dataforge_redis
@@ -44,12 +30,9 @@ services:
 
   worker:
     build: ./backend
-    command: celery -A core worker --loglevel=info
+    command: sh -c "python manage.py migrate && celery -A core worker --loglevel=info"
     depends_on:
       - backend
       - redis
     env_file:
       - ./backend/.env
-
-volumes:
-  postgres_data:

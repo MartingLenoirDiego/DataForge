@@ -14,6 +14,7 @@ COPY . /app/
 # Installe les dépendances
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
 
 # Collecte les fichiers statiques
 RUN python manage.py collectstatic --noinput
