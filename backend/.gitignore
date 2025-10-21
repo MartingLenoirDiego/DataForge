@@ -1,1 +1,68 @@
+# ==============================
+# Python / Django
+# ==============================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+*.mo
+*.pyc
+
+# Django migrations (optionnel: tu peux garder si tu veux versionner certaines migrations)
+*/migrations/*.pyc
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Environment variables
 .env
+
+# Virtualenv
+venv/
+ENV/
+env/
+.envrc
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# macOS / Linux
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+
+# Pytest / coverage
+htmlcov/
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Celery / RabbitMQ / Redis
+celerybeat-schedule
+celerybeat.pid
