@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import UploadCSV from "./pages/UploadCSV";
 import DatasetPreview from "./pages/DatasetPreview";
+import Register from "./pages/Register";
 
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
@@ -18,6 +19,7 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/upload" element={<PrivateRoute><UploadCSV /></PrivateRoute>} />
+          <Route path="/register" element={<Register />} />
           <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/datasets/:id/preview" element={<DatasetPreview />} />
         </Routes>
