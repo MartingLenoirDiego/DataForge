@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const { register } = useAuth();
@@ -22,6 +23,8 @@ const Register = () => {
     <div className="h-screen flex flex-col items-center justify-center bg-gray-100">
         <form onSubmit={handleSubmit}
         className="bg-white p-6 rounded-lg shadow-lg w-80">
+        <h2 className="text-xl font-bold mb-4 text-center">Register</h2>
+        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
         <input
             type="text"
             value={username}
@@ -42,6 +45,12 @@ const Register = () => {
                 className="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700"
         >Register</button>
         </form>
+         <Link
+        to="/login"
+        className="block text-indigo-600 text-sm mt-4 hover:underline"
+      >
+        Already have an account? Login
+      </Link>
     </div>
   );
 };
