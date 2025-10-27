@@ -8,50 +8,65 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await login(username, password);
       window.location.href = "/";
     } catch {
-      setError("Invalid credentials");
+      setError("Identifiants invalides");
     }
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-dark text-white px-4">
+      {/* Logo / Titre */}
+      <h1 className="text-5xl font-extrabold mb-8 text-secondary tracking-wide">
+        DATAFORGE
+      </h1>
+
+      {/* Formulaire */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-lg w-80"
+        className="bg-neutral/90 backdrop-blur-md p-8 rounded-2xl shadow-lg w-full max-w-sm border border-info/30"
       >
-        <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
-        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+        <h2 className="text-2xl font-bold mb-6 text-center text-secondary">
+          Connexion
+        </h2>
+
+        {error && (
+          <p className="text-red-400 text-sm mb-3 text-center bg-red-900/30 py-2 rounded">
+            {error}
+          </p>
+        )}
+
         <input
-          className="border p-2 w-full mb-2 rounded"
-          placeholder="Username"
+          className="border border-info/40 bg-dark/30 focus:border-info focus:ring-2 focus:ring-info/40 outline-none text-white placeholder-gray-400 p-3 w-full mb-4 rounded-lg transition"
+          placeholder="Nom d'utilisateur"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          className="border p-2 w-full mb-4 rounded"
+          className="border border-info/40 bg-dark/30 focus:border-info focus:ring-2 focus:ring-info/40 outline-none text-white placeholder-gray-400 p-3 w-full mb-6 rounded-lg transition"
           type="password"
-          placeholder="Password"
+          placeholder="Mot de passe"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
         <button
           type="submit"
-          className="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700"
+          className="bg-primary hover:bg-secondary text-neutral font-semibold w-full py-3 rounded-lg transition-colors duration-200"
         >
-          Login
+          Se connecter
         </button>
       </form>
 
       <Link
         to="/register"
-        className="block text-indigo-600 text-sm mt-4 hover:underline"
+        className="text-info text-sm mt-6 hover:underline transition"
       >
-        Create an account
+        Créer un compte
       </Link>
     </div>
   );

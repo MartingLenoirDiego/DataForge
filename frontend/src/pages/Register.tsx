@@ -8,48 +8,69 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-     try {
-        await register(username, password);
-        window.location.href = "/login";
+    try {
+      await register(username, password);
+      window.location.href = "/login";
     } catch {
-        setError("Invalid credentials");
+      setError("Erreur : identifiants invalides");
     }
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-100">
-        <form onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-lg w-80">
-        <h2 className="text-xl font-bold mb-4 text-center">Register</h2>
-        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-        <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
-            required
-            className="border p-2 w-full mb-2 rounded"
-        />
-        <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-            className="border p-2 w-full mb-4 rounded"
-        />
-        <button type="submit"
-                className="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700"
-        >Register</button>
-        </form>
-         <Link
-        to="/login"
-        className="block text-indigo-600 text-sm mt-4 hover:underline"
+    <div className="min-h-screen flex flex-col items-center justify-center bg-dark text-white px-4">
+      {/* Logo / Titre */}
+      <h1 className="text-5xl font-extrabold mb-8 text-secondary tracking-wide">
+        DATAFORGE
+      </h1>
+
+      {/* Formulaire */}
+      <form
+        onSubmit={handleSubmit}
+        className="bg-neutral/90 backdrop-blur-md p-8 rounded-2xl shadow-lg w-full max-w-sm border border-info/30"
       >
-        Already have an account? Login
+        <h2 className="text-2xl font-bold mb-6 text-center text-secondary">
+          Créer un compte
+        </h2>
+
+        {error && (
+          <p className="text-red-400 text-sm mb-3 text-center bg-red-900/30 py-2 rounded">
+            {error}
+          </p>
+        )}
+
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Nom d'utilisateur"
+          required
+          className="border border-info/40 bg-dark/30 focus:border-info focus:ring-2 focus:ring-info/40 outline-none text-white placeholder-gray-400 p-3 w-full mb-4 rounded-lg transition"
+        />
+
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Mot de passe"
+          required
+          className="border border-info/40 bg-dark/30 focus:border-info focus:ring-2 focus:ring-info/40 outline-none text-white placeholder-gray-400 p-3 w-full mb-6 rounded-lg transition"
+        />
+
+        <button
+          type="submit"
+          className="bg-primary hover:bg-secondary text-neutral font-semibold w-full py-3 rounded-lg transition-colors duration-200"
+        >
+          S'inscrire
+        </button>
+      </form>
+
+      <Link
+        to="/login"
+        className="text-info text-sm mt-6 hover:underline transition"
+      >
+        Déjà un compte ? Connecte-toi
       </Link>
     </div>
   );

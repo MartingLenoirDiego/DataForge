@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   const [datasets, setDatasets] = useState<any[]>([]);
-  const { logout } = useAuth();
-
   useEffect(() => {
     api.get("datasets/").then((res) => setDatasets(res.data));
   }, []);
@@ -24,54 +21,29 @@ export default function Dashboard() {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">My Datasets</h1>
-        <button
-          onClick={logout}
-          className="bg-red-500 text-white px-3 py-1 rounded"
-        >
-          Logout
-        </button>
+        <h1 className="text-2xl font-bold text-secondary">My Datasets</h1>
       </div>
 
       <Link
         to="/upload"
-        className="bg-green-500 text-white px-3 py-2 rounded mb-4 inline-block"
+        className="bg-primary text-neutral px-3 py-2 rounded mb-4 inline-block"
       >
         Upload CSV
       </Link>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {datasets.map((d) => (
-          <div key={d.id} className="border rounded-lg p-4 bg-white shadow">
-            <h3 className="font-semibold">{d.name}</h3>
-
-            <a
-              href={d.file}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 text-sm"
-            >
-              Download
-            </a>
-
-            {d.cleaned_file && (
-              <a
-                href={d.cleaned_file}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-green-600 text-sm mt-1"
-              >
-                Cleaned File
-              </a>
-            )}
-
-            {/* 👁️ Lien vers la page de prévisualisation */}
+          <div key={d.id} className="border-4 border-info/40 rounded-lg p-4 bg-neutral shadow">
+            <h3 className="font-bold text-secondary">{d.name}</h3>
             <Link
               to={`/datasets/${d.id}/preview`}
-              className="block text-indigo-600 text-sm mt-2 hover:underline"
+              className="block text-primary text-sm mt-2 hover:underline"
             >
-              👁️ Preview
+              Preview
             </Link>
+            <button className="mt-3 bg-primary text-white px-3 py-1 rounded hover:bg-red-600 mr-1">
+              Download
+            </button>
             <button
               onClick={() => handleDelete(d.id)}
               className="mt-3 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"

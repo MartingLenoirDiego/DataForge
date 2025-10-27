@@ -25,16 +25,21 @@ export default function DatasetPreview() {
   }, [id]);
 
   if (loading) {
-    return <div className="text-center p-8 text-gray-600">Chargement...</div>;
+    return (
+      <div className="text-center p-8 text-info">Chargement...</div>
+    );
   }
 
   if (error) {
     return (
-      <div className="text-center p-8 text-red-600">
+      <div className="text-center p-8 text-red-400 bg-red-900/20 rounded-lg max-w-md mx-auto">
         ⚠️ {error}
         <div className="mt-4">
-          <Link to="/" className="text-blue-600 underline">
-            Retour au tableau de bord
+          <Link
+            to="/"
+            className="inline-block bg-info hover:bg-secondary text-neutral font-semibold px-4 py-2 rounded-lg transition-colors duration-200"
+          >
+            ← Retour au dashboard
           </Link>
         </div>
       </div>
@@ -42,20 +47,30 @@ export default function DatasetPreview() {
   }
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Aperçu du CSV #{id}</h1>
-        <Link to="/" className="text-blue-600 underline">
+    <div className="p-6 bg-dark min-h-screen">
+      {/* En-tête avec retour */}
+      <div className="flex justify-between items-center mb-6 max-w-6xl mx-auto">
+        <h1 className="text-2xl font-bold text-secondary">
+          Aperçu du CSV #{id}
+        </h1>
+        <Link
+          to="/"
+          className="inline-block bg-info hover:bg-secondary text-neutral font-semibold px-4 py-2 rounded-lg transition-colors duration-200"
+        >
           ← Retour
         </Link>
       </div>
 
-      <div className="overflow-auto border rounded-lg shadow bg-white">
-        <table className="min-w-full text-sm text-gray-700">
-          <thead className="bg-gray-100">
+      {/* Table dans un panneau clair */}
+      <div className="overflow-auto bg-neutral/90 backdrop-blur-md border border-info/30 rounded-2xl shadow-lg w-full px-2 sm:px-4">
+        <table className="min-w-full text-sm text-white">
+          <thead className="bg-info/20">
             <tr>
               {columns.map((col) => (
-                <th key={col} className="text-left px-4 py-2 border-b font-semibold">
+                <th
+                  key={col}
+                  className="text-left px-4 py-2 border-b border-info/30 font-semibold"
+                >
                   {col}
                 </th>
               ))}
@@ -63,9 +78,15 @@ export default function DatasetPreview() {
           </thead>
           <tbody>
             {rows.map((row, i) => (
-              <tr key={i} className="hover:bg-gray-50">
+              <tr
+                key={i}
+                className="hover:bg-neutral/30 transition-colors duration-150"
+              >
                 {columns.map((col) => (
-                  <td key={col} className="px-4 py-2 border-b">
+                  <td
+                    key={col}
+                    className="px-4 py-2 border-b border-info/20"
+                  >
                     {String(row[col])}
                   </td>
                 ))}
