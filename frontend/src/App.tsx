@@ -5,8 +5,8 @@ import Dashboard from "./pages/Dashboard";
 import UploadCSV from "./pages/UploadCSV";
 import DatasetPreview from "./pages/DatasetPreview";
 import Register from "./pages/Register";
+import Navbar from "./Navbar";
 import { JSX } from "react/jsx-runtime";
-
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const { user } = useAuth();
@@ -21,17 +21,29 @@ const PublicRoute = ({ children }: { children: JSX.Element }) => {
   return <>{children}</>;
 };
 
+const AppContent = () => {
+  const { user } = useAuth();
+
+  return (
+    <>
+      {user && <Navbar />}
+
+      <Routes>
+        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+        <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+        <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="/upload" element={<PrivateRoute><UploadCSV /></PrivateRoute>} />
+        <Route path="/datasets/:id/preview" element={<PrivateRoute><DatasetPreview /></PrivateRoute>} />
+      </Routes>
+    </>
+  );
+};
+
 export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-          <Route path="/upload" element={<PrivateRoute><UploadCSV /></PrivateRoute>} />
-          <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-          <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/datasets/:id/preview" element={<PrivateRoute><DatasetPreview /></PrivateRoute>} />
-        </Routes>
+        <AppContent />
       </BrowserRouter>
     </AuthProvider>
   );
