@@ -42,14 +42,15 @@ export default function Login() {
 
         <input
           className="border border-info/40 bg-dark/30 focus:border-info focus:ring-2 focus:ring-info/40 outline-none text-white placeholder-gray-400 p-3 w-full mb-4 rounded-lg transition"
-          placeholder="Nom d'utilisateur"
+          type="text"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
           className="border border-info/40 bg-dark/30 focus:border-info focus:ring-2 focus:ring-info/40 outline-none text-white placeholder-gray-400 p-3 w-full mb-6 rounded-lg transition"
           type="password"
-          placeholder="Mot de passe"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />

@@ -48,7 +48,7 @@ export default function Dashboard() {
               onClick={() => handleDelete(d.id)}
               className="mt-3 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
             >
-              Supprimer
+              Delete
             </button>
           </div>
         ))}

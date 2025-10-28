@@ -16,7 +16,7 @@ export default function DatasetPreview() {
         setColumns(res.data.columns);
         setRows(res.data.rows);
       } catch (err: any) {
-        setError(err.response?.data?.error || "Erreur lors du chargement du CSV");
+        setError(err.response?.data?.error || "Error loading CSV");
       } finally {
         setLoading(false);
       }
@@ -26,7 +26,7 @@ export default function DatasetPreview() {
 
   if (loading) {
     return (
-      <div className="text-center p-8 text-info">Chargement...</div>
+      <div className="text-center p-8 text-info">Loading...</div>
     );
   }
 
@@ -39,7 +39,7 @@ export default function DatasetPreview() {
             to="/"
             className="inline-block bg-info hover:bg-secondary text-neutral font-semibold px-4 py-2 rounded-lg transition-colors duration-200"
           >
-            ← Retour au dashboard
+            ← Back to dashboard
           </Link>
         </div>
       </div>
@@ -49,9 +49,9 @@ export default function DatasetPreview() {
   return (
     <div className="p-6 bg-dark min-h-screen">
       {/* En-tête avec retour */}
-      <div className="flex justify-between items-center mb-6 max-w-6xl mx-auto">
+      <div className="flex justify-between items-center mb-6 mx-auto">
         <h1 className="text-2xl font-bold text-secondary">
-          Aperçu du CSV #{id}
+          Preview of CSV #{id}
         </h1>
         <Link
           to="/"

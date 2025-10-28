@@ -11,7 +11,7 @@ export default function Navbar() {
       <div className="w-full px-4 sm:px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="text-xl font-bold text-secondary tracking-wide">
-          MyApp
+          DATAFORGE
         </Link>
 
         {/* Bouton menu mobile */}
@@ -61,12 +61,6 @@ export default function Navbar() {
             Dashboard
           </Link>
           <Link
-            to="/about"
-            className="hover:text-secondary transition-colors duration-200"
-          >
-            À propos
-          </Link>
-          <Link
             to="/contact"
             className="hover:text-secondary transition-colors duration-200"
           >
@@ -90,13 +84,6 @@ export default function Navbar() {
             className="block hover:text-secondary transition-colors duration-200"
           >
             Dashboard
-          </Link>
-          <Link
-            to="/about"
-            onClick={() => setMenuOpen(false)}
-            className="block hover:text-secondary transition-colors duration-200"
-          >
-            À propos
           </Link>
           <Link
             to="/contact"
